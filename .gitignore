@@ -1,0 +1,55 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so
+*.dylib
+
+# Execs
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+bin/
+build/
+visualizer
+
+# Precomp Headers
+*.gch
+*.pch
+
+# Debug and profiling
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.gcov
+*.gcda
+*.gcno
+*.depend
+*.layout
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+Session.vim
+.netrwhist
+.nvim/
+.nvimrc
+.exrc
+.cache/
+compile_commands.json
