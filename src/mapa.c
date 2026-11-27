@@ -34,4 +34,6 @@ int CarregarMapa(const char *nomeArquivo, Jogo *j) {
   return 1;
 }
 
+// teste
+
 void DesenharJogo(Jogo *j) {}
