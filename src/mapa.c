@@ -2,10 +2,11 @@
 #include "raylib.h"
 #include <stdio.h>
 #define TAM 40
+#define ESPACO 20
 
 int CarregarMapa(const char *nomeArquivo, Jogo *j) {
   FILE *mapa = fopen(nomeArquivo, "r");
-  int i, k;
+  int i;
   int c;
 
   if (mapa == NULL) {
@@ -50,8 +51,8 @@ void DesenharJogo(Jogo *j) {
   for (i = 0; i < j->linhas; i++) {
     for (k = 0; k < j->colunas; k++) {
       // convertemos a posicao da matriz em coordenadas na tela
-      x = k * TAM;
-      y = i * TAM;
+      x = k * (TAM + ESPACO);
+      y = i * (TAM + ESPACO);
 
       DrawRectangle(x, y, TAM, TAM,
                     LIGHTGRAY); // caso base: todo o mapa é caminho livre
