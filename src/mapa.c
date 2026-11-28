@@ -59,11 +59,30 @@ void DesenharJogo(Jogo *j) {
       case '#':
         DrawRectangle(x, y, TAM, TAM, DARKGRAY); // obstaculo
         break;
-          case ''
+      case 'P': // jogador
+        DrawRectangle(x, y, TAM - 10, TAM - 10, MAGENTA);
+        DrawText("P", x, y, 24, RAYWHITE);
+        break;
+      case 'C': // cristal
+        DrawCircle(x, y, 30, GOLD);
+        break;
+      case 'R': // recuperacao
+        DrawRectangle(x, y, TAM - 10, TAM - 10, DARKGREEN);
+        DrawText("+", x, y, 24, RAYWHITE);
+        break;
+      case 'A': // armadilha
+        DrawRectangle(x, y, TAM - 10, TAM - 10, RED);
+        DrawText("A", x, y, 24, RAYWHITE);
+        break;
+      case 'E': // evento
+        DrawRectangle(x, y, TAM - 10, TAM - 10, PURPLE);
+        DrawText("?", x, y, 24, RAYWHITE);
+        break;
+      case 'S': // saida
+        DrawRectangle(x, y, TAM - 10, TAM - 10, BLUE);
+        DrawText("S", x, y, 24, RAYWHITE);
+        break;
       }
-
     }
   }
-
-
 }
