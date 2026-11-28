@@ -1,19 +1,18 @@
 #include "jogo.h"
 #include "raylib.h"
 #include <stdio.h>
-#define TAM 40
-#define ESPACO 20
+#define TAM 28
+#define ESPACO 10
 
 int CarregarMapa(const char *nomeArquivo, Jogo *j) {
   FILE *mapa = fopen(nomeArquivo, "r");
-  int i;
-  int c;
+  int i, k;
 
   if (mapa == NULL) {
     return 0;
   } else {
-    if (fscanf(mapa, "%d %d %d %d", &j->colunas, &j->linhas, &j->energia,
-               &j->cristais) !=
+    if (fscanf(mapa, "%d %d %d %d", &j->linhas, &j->colunas, &j->energia,
+               &j->minimoCristais) !=
         4) { // verifica se o numero de colunas, linhas, energia e minimo de
       fclose(mapa); // cristais foram lidos corretamente
       return 0;
@@ -26,16 +25,19 @@ int CarregarMapa(const char *nomeArquivo, Jogo *j) {
       return 0;
     }
 
-    while ((c = fgetc(mapa)) != '\n' && c != EOF)
-      ; // Consome quebras de linha e fim de arquivo antes de usar fgets
-
     for (i = 0; i < j->linhas; i++) {
-      if (fgets(j->mapa[i], j->colunas, mapa) ==
-          NULL) { // verifica se os caracteres que formam o mapa foram lidos
-                  // corretamente
-        fclose(mapa);
-        return 0;
-      };
+      for (k = 0; k < j->colunas; k++) {
+        if (fscanf(mapa, " %c",
+                   &j->mapa[i][k]) !=
+            1) { // verifica se os caracteres foram lidos corretamente
+          fclose(mapa);
+          return 0;
+        }
+        if (j->mapa[i][k] == 'P') {
+          j->linhasJ = i;
+          j->colunasJ = k;
+        }
+      }
 
       j->mapa[i][j->colunas] = '\0'; // Consome quebras de linha
     }
@@ -61,27 +63,27 @@ void DesenharJogo(Jogo *j) {
         DrawRectangle(x, y, TAM, TAM, DARKGRAY); // obstaculo
         break;
       case 'P': // jogador
-        DrawRectangle(x, y, TAM - 10, TAM - 10, MAGENTA);
-        DrawText("P", x, y, 24, RAYWHITE);
+        DrawRectangle(x + TAM / 2, y + TAM / 2, TAM - 10, TAM - 10, MAGENTA);
+        DrawText("P", x + TAM / 2, y + TAM / 2, 24, RAYWHITE);
         break;
       case 'C': // cristal
-        DrawCircle(x, y, 30, GOLD);
+        DrawCircle(x + TAM / 2, y + TAM / 2, 10, GOLD);
         break;
       case 'R': // recuperacao
-        DrawRectangle(x, y, TAM - 10, TAM - 10, DARKGREEN);
-        DrawText("+", x, y, 24, RAYWHITE);
+        DrawRectangle(x + TAM / 2, y + TAM / 2, TAM - 10, TAM - 10, DARKGREEN);
+        DrawText("+", x + TAM / 2, y + TAM / 2, 24, RAYWHITE);
         break;
       case 'A': // armadilha
-        DrawRectangle(x, y, TAM - 10, TAM - 10, RED);
-        DrawText("A", x, y, 24, RAYWHITE);
+        DrawRectangle(x + TAM / 2, y + TAM / 2, TAM - 10, TAM - 10, RED);
+        DrawText("A", x + TAM / 2, y + TAM / 2, 24, RAYWHITE);
         break;
       case 'E': // evento
-        DrawRectangle(x, y, TAM - 10, TAM - 10, PURPLE);
-        DrawText("?", x, y, 24, RAYWHITE);
+        DrawRectangle(x + TAM / 2, y + TAM / 2, TAM - 10, TAM - 10, PURPLE);
+        DrawText("?", x + TAM / 2, y + TAM / 2, 24, RAYWHITE);
         break;
       case 'S': // saida
-        DrawRectangle(x, y, TAM - 10, TAM - 10, BLUE);
-        DrawText("S", x, y, 24, RAYWHITE);
+        DrawRectangle(x + TAM / 2, y + TAM / 2, TAM - 10, TAM - 10, BLUE);
+        DrawText("S", x + TAM / 2, y + TAM / 2, 24, RAYWHITE);
         break;
       }
     }

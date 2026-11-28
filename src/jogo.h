@@ -9,6 +9,8 @@
 #define VITORIA 1
 #define DERROTA 2
 #define DESISTIU 3
+#define ALTURA_TELA 750
+#define LARGURA_TELA 1160
 
 typedef struct {
   char mapa[MAX_LINHAS][MAX_COLUNAS];
